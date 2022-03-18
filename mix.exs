@@ -4,7 +4,10 @@
 defmodule GrpcMock.Mixfile do
   use Mix.Project
 
-  @version "0.3.0"
+  @version (case File.read("VERSION") do
+              {:ok, version} -> String.trim(version)
+              {:error, _} -> "0.0.0-development"
+            end)
 
   def project do
     [
@@ -17,7 +20,9 @@ defmodule GrpcMock.Mixfile do
       description: description(),
       package: package(),
       docs: docs(),
-      deps: deps()
+      deps: deps(),
+      name: "GrpcMock",
+      homepage_url: "https://github.com/coingaming/grpc-mock/tree/v#{@version}"
     ]
   end
 
@@ -39,9 +44,11 @@ defmodule GrpcMock.Mixfile do
 
   defp package do
     [
+      organization: "coingaming",
       maintainers: ["Predrag Rakic"],
       licenses: ["Apache License, Version 2.0"],
-      links: %{"GitHub" => "https://github.com/renderedtext/grpc-mock"}
+      files: ["lib", "mix.exs", "README.md", "CHANGELOG.md", "VERSION"],
+      links: %{"GitHub" => "https://github.com/coingaming/grpc-mock/tree/v#{@version}"}
     ]
   end
 
@@ -55,9 +62,9 @@ defmodule GrpcMock.Mixfile do
 
   defp deps do
     [
-      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
-      {:grpc, "~> 0.6.1", hex: :grpc_fresha},
-      {:ex_doc, "~> 0.18.0", only: :dev}
+      {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:grpc, "~> 0.5", organization: "coingaming"},
+      {:ex_doc, "~> 0.18.0", only: [:dev, :test]}
     ]
   end
 end
