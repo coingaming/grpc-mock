@@ -64,7 +64,7 @@ defmodule GrpcMock.Mixfile do
     [
       {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
       {:grpc, "~> 0.5", organization: "coingaming"},
-      {:ex_doc, "~> 0.18.0", only: [:dev, :test]}
+      {:ex_doc, "~> 0.18", only: [:dev, :test]}
     ]
   end
 end
